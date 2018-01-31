@@ -1,0 +1,263 @@
+@charset "UTF-8";
+
+body {
+	-webkit-text-size-adjust: 100%;
+	margin: 0;
+}
+h1 {
+	font-size: 175%;
+}
+
+/* ページ内に表示するタイトル */
+.title {
+	text-align: center;
+}
+.caution {
+	width: 720px;
+	margin: 0 auto;
+	padding: 2px 10px;
+	text-align: left;
+	color: #990000;
+	background-color: #ffff99;
+}
+/* ページ説明文と表示on/off切り替え領域 */
+.intro {
+	width: 720px;
+	margin: 0 auto;
+	margin-bottom: 10px;
+	padding: 10px;
+	background-color: #efefcc;
+}
+/* チェックボックス自体は非表示 */
+.intro input[type="checkbox"] {
+	display: none;
+}
+/* ページ説明文の表示・非表示切替 */
+.intro label[for="id_vis_sw"] {
+	display: block;
+	width: 50%;
+	border: 2px solid black;
+	border-radius: 5px;
+	padding: 5px;
+	text-align: center;
+	font-weight: bold;
+}
+/* マウスカーソルがラベル領域に入ったら… */
+.intro label:hover {
+	background-color: #ffcc33;
+	cursor: pointer;
+}
+/* ページ説明文は最初非表示 */
+.intro_visible {
+	height: 0;
+	padding: 0;
+	overflow: hidden;
+	opacity: 0;
+	transition: 0.25s;
+}
+/* 説明文が非表示のとき、ラベルに「開く」を追記 */
+.intro label[for="id_vis_sw"]:after {
+	content: " ...OPEN▼";
+}
+/* ラベルクリックで説明文を表示する */
+#id_vis_sw:checked ~ .intro_visible {
+	height: auto;
+	opacity: 1;
+	transition: 0.25s;
+}
+/* 説明文が表示されたら、ラベルに「閉じる」を追記 */
+#id_vis_sw:checked ~ label[for="id_vis_sw"]:after {
+	content: " ...CLOSE▲";
+}
+
+/* 声の長さ（文字数）設定 */
+input.reqlen {
+	width: 5em;
+	font-size: 125%;
+}
+input.txt_ent {
+	display: none;
+	opacity: 0;
+}
+
+/* 設定一覧表エリアの背景 */
+.tblbase {
+	width: 720px;
+	margin: 0 auto;
+	padding: 10px;
+	background-color: #ffdf66;
+}
+
+/* 設定一覧表 */
+table.settings {
+	margin: 0 auto;
+	border: 0px transparent;
+	border-collapse: collapse;
+	cellspacing: 0px;
+}
+th.settings {
+	color: #ffff66;
+	border: 1px solid black;
+	padding: 10px 0px;
+	text-align: center;
+	background-color: #006600;
+}
+/* 設定一覧表内、構成文字説明欄 */
+td.elem_desc {
+	width: 20%;
+	border-top:    1px solid black;
+	border-right:  0px;
+	border-bottom: 1px solid black;
+	border-left:   1px solid black;
+	padding: 0px 15px;
+	background-color: #f7fff7;
+	text-align: center;
+}
+/* 設定一覧表内、構成文字の表示、編集欄 */
+td.elem_edit {
+	border-top:    1px solid black;
+	border-right:  1px solid black;
+	border-bottom: 1px solid black;
+	border-left:   0px;
+	background-color: #f7fff7;
+}
+/* 設定一覧表内、構成文字種の選択欄 */
+td.select_sw {
+	width: 18%;
+	border-top:    0px;
+	border-right:  1px solid black;
+	border-bottom: 1px solid black;
+	border-left:   1px solid black;
+	background-color: #f7fff7;
+	text-align: center;
+}
+/* 非表示checkboxでラベルのon/off表示を切り替える */
+.select_sw input[type="checkbox"] {
+	display: none;
+}
+.select_sw label {
+	display: block;
+	box-sizing: border-box;
+	width: 70px;
+	border: 5px solid #999999;
+	border-radius: 10px;
+	margin: 0 auto;
+	padding: 10px;
+	font-weight: bold;
+	background-color: #cccccc;
+	transition: 0.25s;
+}
+.select_sw label:after {
+	content: "OFF";
+	color: #006600;
+}
+.select_sw label:hover {
+	border-color: #00ff00;
+	cursor: pointer;
+}
+.select_sw input[type="checkbox"]:checked ~ label {
+	background-color: #00ff00;
+	border-color: #00cc00;
+}
+.select_sw input[type="checkbox"]:checked
+	~ label:after {
+	content: "ON";
+	color: black;
+}
+
+/* 設定一覧表下欄外の注記表示部 */
+.setg_notes {
+/*
+	min-width: 210px;
+	max-width: 220px;
+*/
+	border: 0px;
+	vertical-align: top;
+}
+.setg_notes p {
+	width: 95%;
+	padding-left: 5px;
+	font-size: 80%;
+}
+
+/* 設定一覧表下欄外の一括編集ボタン */
+.setg_notes input[type="submit"] {
+	width: 60%;
+	margin: 0 auto;
+	display: block;
+	padding: 10px 0px;
+	text-align: center;
+	font-size: 100%
+}
+.setg_notes input[type="submit"]:hover {
+	cursor: pointer;
+}
+
+/* 声（の文字列）生成ボタン */
+.setg_gen {
+	vertical-align: bottom;
+}
+.btn_gen {
+	padding: 10px 20px;
+	text-align: center;
+	font-size: 120%;
+}
+.btn_gen:hover {
+	cursor: pointer;
+}
+
+/* 声（の文字列）生成結果表示欄 */
+.result_s {
+	box-sizing: border-box;
+	width: 720px;
+	margin: 0 auto;
+	border: 3px solid #00ff00;
+	padding: 10px;
+	background-color: #f7fff7;
+}
+.result_s input[type=text] {
+	width: 100%;
+	font-size: 125%;
+}
+.elem_disp {
+	border: 1px solid #0033ff;
+	padding: 10px;
+	color: #0000ff;
+	background-color: #e0ffff;
+}
+.result_f {
+	box-sizing: border-box;
+	width: 720px;
+	margin: 0 auto;
+	border: 3px solid red;
+	padding: 10px;
+	background-color: #ffff99;
+}
+p.reason_f {
+	color: #990000;
+}
+hr.reason_f {
+	width: 80%;
+	color: #999999;
+}
+
+/* bodyのmarginをゼロにしないと、
+左右と下に余白ができちゃうんです。 */
+.ftr {
+	margin-top:    10px;
+	margin-right:   0px;
+	margin-bottom:  0px;
+	margin-left:    0px;
+	padding-top: 20px;
+	padding-bottom: 50px;
+	text-align: center;
+	font-size: 80%;
+	color: #cccccc;
+	background-color: #4f2f2f;
+}
+.ftr a:link {
+	color: #cccccc;
+}
+.ftr a:visited {
+	color: #cccccc;
+}
