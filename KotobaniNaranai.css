@@ -1,33 +1,43 @@
 @charset "UTF-8";
 
+html {
+	font-size: 62.5%; /* 基準フォントを16pxから10pxに調整する */
+}
 body {
-	-webkit-text-size-adjust: 100%;
 	margin: 0;
+	padding: 0;
 }
 h1 {
-	font-size: 175%;
+	font-size: 5vw;
 }
+@media only screen and (min-width: 640px) {
+h1 {
+	font-size: 3.2rem;
+}}
 
+.bklnk {
+	font-size: 1.4rem;
+}
 /* ページ内に表示するタイトル */
 .title {
 	text-align: center;
-}
-.caution {
-	width: 720px;
-	margin: 0 auto;
-	padding: 2px 10px;
-	text-align: left;
-	color: #990000;
-	background-color: #ffff99;
+	font-size: 1.4rem;
 }
 /* ページ説明文と表示on/off切り替え領域 */
 .intro {
-	width: 720px;
+	display: block;
+	box-sizing: border-box;
+	width: auto;
 	margin: 0 auto;
 	margin-bottom: 10px;
 	padding: 10px;
 	background-color: #efefcc;
+	font-size: 1.4rem;
 }
+@media only screen and (min-width: 720px) {
+.intro {
+	width: 720px;
+}}
 /* チェックボックス自体は非表示 */
 .intro input[type="checkbox"] {
 	display: none;
@@ -35,12 +45,12 @@ h1 {
 /* ページ説明文の表示・非表示切替 */
 .intro label[for="id_vis_sw"] {
 	display: block;
-	width: 50%;
+	box-sizing: border-box;
+	width: 100%;
 	border: 2px solid black;
-	border-radius: 5px;
+	border-radius: 10px;
 	padding: 5px;
 	text-align: center;
-	font-weight: bold;
 }
 /* マウスカーソルがラベル領域に入ったら… */
 .intro label:hover {
@@ -57,7 +67,7 @@ h1 {
 }
 /* 説明文が非表示のとき、ラベルに「開く」を追記 */
 .intro label[for="id_vis_sw"]:after {
-	content: " ...OPEN▼";
+	content: " ...click to OPEN▼";
 }
 /* ラベルクリックで説明文を表示する */
 #id_vis_sw:checked ~ .intro_visible {
@@ -66,14 +76,18 @@ h1 {
 	transition: 0.25s;
 }
 /* 説明文が表示されたら、ラベルに「閉じる」を追記 */
-#id_vis_sw:checked ~ label[for="id_vis_sw"]:after {
-	content: " ...CLOSE▲";
+.intro input[type=checkbox]:checked ~ label[for="id_vis_sw"]:after {
+	content: " ...click to CLOSE▲";
+}
+#id_vis_sw:checked ~ .intro_visible label:after {
+	content: "閉じる／Click to CLOSE▲"
 }
 
 /* 声の長さ（文字数）設定 */
 input.reqlen {
-	width: 5em;
-	font-size: 125%;
+	width: 8rem;
+	font-size: 2.0rem;
+	text-align: right;
 }
 input.txt_ent {
 	display: none;
@@ -81,177 +95,292 @@ input.txt_ent {
 }
 
 /* 設定一覧表エリアの背景 */
-.tblbase {
-	width: 720px;
-	margin: 0 auto;
-	padding: 10px;
-	background-color: #ffdf66;
-}
-
-/* 設定一覧表 */
-table.settings {
-	margin: 0 auto;
-	border: 0px transparent;
-	border-collapse: collapse;
-	cellspacing: 0px;
-}
-th.settings {
-	color: #ffff66;
-	border: 1px solid black;
-	padding: 10px 0px;
-	text-align: center;
-	background-color: #006600;
-}
-/* 設定一覧表内、構成文字説明欄 */
-td.elem_desc {
-	width: 20%;
-	border-top:    1px solid black;
-	border-right:  0px;
-	border-bottom: 1px solid black;
-	border-left:   1px solid black;
-	padding: 0px 15px;
-	background-color: #f7fff7;
-	text-align: center;
-}
-/* 設定一覧表内、構成文字の表示、編集欄 */
-td.elem_edit {
-	border-top:    1px solid black;
-	border-right:  1px solid black;
-	border-bottom: 1px solid black;
-	border-left:   0px;
-	background-color: #f7fff7;
-}
-/* 設定一覧表内、構成文字種の選択欄 */
-td.select_sw {
-	width: 18%;
-	border-top:    0px;
-	border-right:  1px solid black;
-	border-bottom: 1px solid black;
-	border-left:   1px solid black;
-	background-color: #f7fff7;
-	text-align: center;
-}
-/* 非表示checkboxでラベルのon/off表示を切り替える */
-.select_sw input[type="checkbox"] {
-	display: none;
-}
-.select_sw label {
+.tblbg {
 	display: block;
 	box-sizing: border-box;
-	width: 70px;
-	border: 5px solid #999999;
-	border-radius: 10px;
+	width: auto;
 	margin: 0 auto;
-	padding: 10px;
-	font-weight: bold;
+	padding: 0.5rem;
+	border-collapse: collapse;
+	cellspacing: 0px;
+	background-color: #ffdf66;
+	font-size: 1.4rem;
+}
+@media only screen and (min-width: 720px) {
+.tblbg {
+	width: 720px;
+}}
+
+/* 設定一覧表内、ヘッダ部コンテナ */
+.tbl_h {
+	display: grid;
+	width: auto;
+	grid-template-columns: 9rem 1fr 6rem 1fr 6rem;
+	grid-template-areas:
+		"g_h_type  g_h_edit  g_h_edit  g_h_edit  g_h_edit";
+	border: 1px solid black;
+	color: #ffff99;
+	background-color: #006600;
+	align-items: center;
+}
+.tbl_h hr {
+	width: 90%;
+	color: #ffff99;
+}
+/* 設定一覧表内、ヘッダ部コンテンツ */
+.h_type {
+	grid-area: g_h_type;
+	padding: 0.25rem 0rem;
+	text-align: center;
+}
+.h_edit {
+	grid-area: g_h_edit;
+	padding: 0.25rem 0rem;
+	text-align: center;
+}
+/* 設定一覧表データ部、コンテナ */
+.tbl_d {
+	display: grid;
+	width: auto;
+	height: auto;
+	grid-template-columns: 9rem 1fr 6rem 1fr 6rem;
+	grid-template-areas:
+		"g_type g_edit g_edit g_edit g_btns"
+		"g_type g_sw_d g_sw_d g_sw_s g_sw_s";
+	border: 1px solid black;
+	border-top: none;
+	padding: 0px;
+	background-color: #f7fff7;
+	align-items: center;
+}
+
+/* 設定一覧表データ部、構成文字種タイトル */
+.d_type {
+	grid-area: g_type;
+	display: grid;
+	box-sizing: border-box;
+	height: auto;
+	padding: 0.5rem 0.25rem 0.5rem 0.5rem;
+	align-items: center;
+}
+/* 設定一覧表データ部、構成文字の表示、編集欄 */
+.d_edit {
+	grid-area: g_edit;
+	box-sizing: border-box;
+	height: 8rem;
+	border: none;
+	padding: 0.25rem 0.25rem 0rem 0rem;
+}
+.d_edit textarea {
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+	font-size: 2.0rem;
+	word-break: break-all;
+}
+/* 設定一覧表データ部、構成文字編集欄のclear,resetボタン */
+.d_btns {
+	grid-area: g_btns;
+	box-sizing: border-box;
+	height: 8rem;
+	border: none;
+	padding: 0.25rem 0.5rem 0rem 0rem;
+}
+.d_btns button {
+	width: 100%;
+	height: 50%;
+	padding: 0px;
+	text-align: center;
+	font-size: 1.6rem;
+}
+.d_btns button:hover {
+	cursor: pointer;
+}
+/* 設定一覧表データ部、全角選択スイッチ */
+.d_sw_m {
+	grid-area: g_sw_d;
+	display: grid; /* グリッド内の要素を上下中央に配置する */
+	box-sizing: border-box;
+	height: 100%;
+	padding: 0.25rem 0rem;
+	align-items: center; /* グリッド内の要素を上下中央に配置する */
+	text-align: center;
+}
+.d_sw_m label {
+	box-sizing: border-box;
+	width: 95%;
+	border: 3px solid #999999;
+	border-radius: 10px;
 	background-color: #cccccc;
-	transition: 0.25s;
+	font-size: 1.6rem;
+	overflow: hidden;
+	color: black;
+	transition: 0.0s;
 }
-.select_sw label:after {
-	content: "OFF";
-	color: #006600;
+.d_sw_m label:after {
+	content: ": OFF";
 }
-.select_sw label:hover {
+.d_sw_m label:hover {
 	border-color: #00ff00;
 	cursor: pointer;
 }
-.select_sw input[type="checkbox"]:checked ~ label {
-	background-color: #00ff00;
-	border-color: #00cc00;
+/* 非表示checkboxでラベルのon/off表示を切り替える */
+.d_sw_m input {
+	display: none;
 }
-.select_sw input[type="checkbox"]:checked
-	~ label:after {
-	content: "ON";
+.d_sw_m input:checked ~ label {
+	border-color: #009900;
+	background-color: #00ff00;
+	font-weight: bold;
 	color: black;
+}
+.d_sw_m input:checked ~ label:after {
+	content: ": ON";
+}
+/* 設定一覧表データ部、半角選択スイッチ */
+.d_sw_s {
+	grid-area: g_sw_s;
+	display: grid; /* グリッド内の要素を上下中央に配置する */
+	box-sizing: border-box;
+	height: 100%;
+	padding: 0.25rem 0rem;
+	align-items: center; /* グリッド内の要素を上下中央に配置する */
+	text-align: center;
+}
+.d_sw_s label {
+	box-sizing: border-box;
+	width: 95%;
+	border: 3px solid #999999;
+	border-radius: 10px;
+	background-color: #cccccc;
+	font-size: 1.6rem;
+	overflow: hidden;
+	color: black;
+	transition: 0.0s;
+}
+.d_sw_s label:after {
+	content: ": OFF";
+}
+.d_sw_s label:hover {
+	border-color: #00ff00;
+	cursor: pointer;
+}
+/* 非表示checkboxでラベルのon/off表示を切り替える */
+.d_sw_s input {
+	display: none;
+}
+.d_sw_s input:checked ~ label {
+	border-color: #009900;
+	background-color: #00ff00;
+	font-weight: bold;
+	color: black;
+}
+.d_sw_s input:checked ~ label:after {
+	content: ": ON";
 }
 
 /* 設定一覧表下欄外の注記表示部 */
-.setg_notes {
-/*
-	min-width: 210px;
-	max-width: 220px;
-*/
-	border: 0px;
-	vertical-align: top;
+.tbl_f {
+	display: grid;
+	width: auto;
+	grid-template-columns: 9rem 1fr 6rem 1fr 6rem;
+	grid-template-areas:
+		"g_f_edit g_f_edit g_f_edit g_f_btn g_f_btn"
+		"g_f_gen  g_f_gen  g_f_gen  g_f_btn g_f_btn";
+	border: none;
+	padding: 0px;
 }
-.setg_notes p {
+/* 要素文字と全・半角選択スイッチの説明部分 */
+.f_edit {
+	grid-area: g_f_edit;
 	width: 95%;
-	padding-left: 5px;
-	font-size: 80%;
+	font-size: 1.2rem;
 }
-
-/* 設定一覧表下欄外の一括編集ボタン */
-.setg_notes input[type="submit"] {
-	width: 60%;
-	margin: 0 auto;
-	display: block;
-	padding: 10px 0px;
-	text-align: center;
-	font-size: 100%
+/* clear,resetボタンの説明部分 */
+.f_btn {
+	grid-area: g_f_btn;
+	width: 100%;
+	font-size: 1.2rem;
 }
-.setg_notes input[type="submit"]:hover {
-	cursor: pointer;
+/* 声（の文字列）生成ボタンエリア */
+.f_gen {
+	grid-area: g_f_gen;
+	display: grid;
+	padding-right: 0.5rem;
+	align-items: flex-end;
 }
-
-/* 声（の文字列）生成ボタン */
-.setg_gen {
-	vertical-align: bottom;
-}
-.btn_gen {
+.f_gen button {
 	padding: 10px 20px;
 	text-align: center;
-	font-size: 120%;
+	font-size: 1.8rem;
 }
-.btn_gen:hover {
+.f_gen button:hover {
 	cursor: pointer;
 }
 
 /* 声（の文字列）生成結果表示欄 */
 .result_s {
 	box-sizing: border-box;
-	width: 720px;
+	width: auto;
 	margin: 0 auto;
 	border: 3px solid #00ff00;
+	border-radius: 10px;
 	padding: 10px;
 	background-color: #f7fff7;
+	font-size: 1.4rem;
 }
+@media only screen and (min-width: 720px) {
+.result_s {
+	width: 720px;
+}}
 .result_s input[type=text] {
 	width: 100%;
-	font-size: 125%;
+	font-size: 2.0rem;
+}
+.result_s hr {
+	width: 95%;
+	color: #006600;
 }
 .elem_disp {
 	border: 1px solid #0033ff;
 	padding: 10px;
-	color: #0000ff;
 	background-color: #e0ffff;
+	color: #0000ff;
+	font-size: 1.4rem;
+	word-break: break-all;
+	overflow-wrap: break-word;
 }
 .result_f {
 	box-sizing: border-box;
-	width: 720px;
+	width: auto;
 	margin: 0 auto;
 	border: 3px solid red;
+	border-radius: 10px;
 	padding: 10px;
 	background-color: #ffff99;
+	font-size: 1.4rem;
 }
-p.reason_f {
+@media only screen and (min-width: 720px) {
+.result_f {
+	width: 720px;
+}}
+.result_f hr {
+	width: 95%;
+	color: #ff0000;
+}
+.reason_f {
+	font-size: 1.4rem;
 	color: #990000;
-}
-hr.reason_f {
-	width: 80%;
-	color: #999999;
 }
 
 /* bodyのmarginをゼロにしないと、
 左右と下に余白ができちゃうんです。 */
 .ftr {
-	margin-top:    10px;
-	margin-right:   0px;
-	margin-bottom:  0px;
-	margin-left:    0px;
+	margin: 10px 0px 0px 0px;
 	padding-top: 20px;
 	padding-bottom: 50px;
 	text-align: center;
-	font-size: 80%;
+	font-size: 1.4rem;
 	color: #cccccc;
 	background-color: #4f2f2f;
 }
